@@ -1,0 +1,54 @@
+body {
+  background-color: rgb(51, 51, 121);
+  text-align: center;
+}
+
+h1 {
+  background-color: rgba(0, 255, 255, 0.815);
+  margin: auto;
+  margin-top: 30px;
+  border-radius: 25px;
+  width: 240px;
+  border-style: outset;
+  border-color: rgb(92, 100, 98);
+  font-family: cursive;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  background-color: rgba(0, 255, 255, 0.815);
+}
+
+.cell:hover {
+  background-color: rgb(162, 96, 224);
+}
+
+table {
+  margin: 50px auto;
+}
+
+.cell img {
+    width: 25px;
+    height: auto;
+}
+
+.revealed{
+  background-color: rgb(17, 99, 175);
+  color:aqua;
+}
+
+button{
+  color: aquamarine;
+  background-color: blueviolet;
+  border-radius: 10px;
+  margin-right: 20px;
+  margin-left: 20px;
+  padding: 5px;
+}
+
+footer{
+  margin-top: 30px;
+  color: aqua;
+}
