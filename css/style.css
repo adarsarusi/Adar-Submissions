@@ -26,20 +26,20 @@ h1 {
 }
 
 table {
-  margin: 50px auto;
+  margin: 40px auto;
 }
 
 .cell img {
-    width: 25px;
-    height: auto;
+  width: 25px;
+  height: auto;
 }
 
-.revealed{
+.revealed {
   background-color: rgb(17, 99, 175);
-  color:aqua;
+  color: aqua;
 }
 
-button{
+button {
   color: aquamarine;
   background-color: blueviolet;
   border-radius: 10px;
@@ -48,7 +48,24 @@ button{
   padding: 5px;
 }
 
-footer{
+footer {
   margin-top: 30px;
   color: aqua;
+}
+
+.minePop {
+  background-color: rgb(230, 42, 42);
+}
+
+.lives img{
+  width: 50px;
+  height: 50px;
+  margin-top: 30px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.smile img{
+  width: 80px;
+  margin-top: 20px;
 }
