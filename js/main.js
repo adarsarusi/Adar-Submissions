@@ -39,6 +39,7 @@ function setDifficulty(size, mines) {
   gLevel.MINES = mines;
   gLevel.REVEALED = size ** 2 - mines;
 
+  gGame.firstClick = true
   gGame.LIVES = 3;
   setLives();
 
@@ -120,7 +121,10 @@ function renderBoard(board) {
 
       if (currCell.isMine === true) {
         strHTML += `\t<td class="cell ${cellClass} mine" oncontextmenu="onCellMarked(event, this, ${i},${j})" onclick="onCellClicked(this, ${i},${j})">`;
-      } else {
+      } else if (currCell.isRevealed === true) {
+        strHTML += `\t<td class="cell ${cellClass} revealed" oncontextmenu="onCellMarked(event, this, ${i},${j})" onclick="onCellClicked(this, ${i},${j})">`;
+      }
+      else {
         strHTML += `\t<td class="cell ${cellClass}" oncontextmenu="onCellMarked(event, this, ${i},${j})" onclick="onCellClicked(this, ${i},${j})">`;
       }
 
@@ -134,10 +138,16 @@ function renderBoard(board) {
 function onCellClicked(elCell, i, j) {
   if (gGame.firstClick === true) {
     gGame.firstClick = false;
-    gBoard[i][j].isFirstClick === true;
+    gBoard[i][j].isFirstClick = true;
+    gBoard[i][j].isRevealed = true;
     // need to fix (still doesnt work properly)
+    // fixed :)
     setupMines();
     buildBoard();
+    elCell.innerText = gBoard[i][j].minesAroundCount;
+    renderBoard(gBoard)
+
+    return
   }
 
   // if the game is finished the player cannot click any more cells
@@ -221,7 +231,7 @@ function checkGameOver() {
   }
 }
 
-function expandReveal(board, elCell, i, j) {}
+function expandReveal(board, elCell, i, j) { }
 
 function setLives() {
   var elLives = document.querySelector(".lives");
