@@ -108,18 +108,19 @@ function checkMinesNegsCount(mat, matI, matJ) {
 }
 
 
-function expandReveal(board, elCell, i, j) {
+function expandReveal(board, elCell, matI, matJ) {
   if (checkMinesNegsCount(board, i, j) !== 0) return
 
   for (var i = matI - 1; i <= matI + 1; i++) {
-    if (i < 0 || i >= mat.length) continue;
+    if (i < 0 || i >= board.length) continue;
 
     for (var j = matJ - 1; j <= matJ + 1; j++) {
-      if (j < 0 || j >= mat[i].length) continue;
+      if (j < 0 || j >= board[i].length) continue;
       if (i === matI && j === matJ) continue;
 
       elCell.isRevealed = true
       elCell.classList.add("revealed");
+      elCell.innerText = gBoard[i][j].minesAroundCount;
       gGame.revealedCount++;
     }
   }
@@ -162,11 +163,18 @@ function onCellClicked(elCell, i, j) {
     // fixed :)
     setupMines();
     buildBoard();
+
+    // if (gBoard[i][j].minesAroundCount === 0) {
+    //   expandReveal(gBoard, elCell, i, j)
+    //   return
+    // }
+
     gBoard[i][j].isRevealed = true;
     elCell.classList.add("revealed");
     gGame.revealedCount++;
-    elCell.innerText = gBoard[i][j].minesAroundCount;
     // renderBoard(gBoard)
+    elCell.innerText = gBoard[i][j].minesAroundCount;
+
 
 
     return
@@ -214,6 +222,8 @@ function onCellClicked(elCell, i, j) {
   // if theres mines around the clicked cell it reveals how many mines are around it
   if (gBoard[i][j].minesAroundCount > 0 && gBoard[i][j].isMine === false)
     elCell.innerText = gBoard[i][j].minesAroundCount;
+
+  // if (gBoard[i][j].minesAroundCount === 0) expandReveal(gBoard, elCell, i, j)
 
   checkGameOver();
 }
