@@ -81,7 +81,7 @@ function buildBoard() {
   // setting nearby mines count around each cell
   for (var i = 0; i < gBoard.length; i++) {
     for (var j = 0; j < gBoard[i].length; j++) {
-      gBoard[i][j].minesAroundCount = setMinesNegsCount(gBoard, i, j);
+      gBoard[i][j].minesAroundCount = checkMinesNegsCount(gBoard, i, j);
     }
   }
 
@@ -89,7 +89,7 @@ function buildBoard() {
   return;
 }
 
-function setMinesNegsCount(mat, matI, matJ) {
+function checkMinesNegsCount(mat, matI, matJ) {
   var count = 0;
 
   //neighbor function
@@ -105,6 +105,24 @@ function setMinesNegsCount(mat, matI, matJ) {
   }
 
   return count;
+}
+
+
+function expandReveal(board, elCell, i, j) {
+  if (checkMinesNegsCount(board, i, j) !== 0) return
+
+  for (var i = matI - 1; i <= matI + 1; i++) {
+    if (i < 0 || i >= mat.length) continue;
+
+    for (var j = matJ - 1; j <= matJ + 1; j++) {
+      if (j < 0 || j >= mat[i].length) continue;
+      if (i === matI && j === matJ) continue;
+
+      elCell.isRevealed = true
+      elCell.classList.add("revealed");
+      gGame.revealedCount++;
+    }
+  }
 }
 
 function renderBoard(board) {
@@ -144,11 +162,18 @@ function onCellClicked(elCell, i, j) {
     // fixed :)
     setupMines();
     buildBoard();
+    gBoard[i][j].isRevealed = true;
+    elCell.classList.add("revealed");
+    gGame.revealedCount++;
     elCell.innerText = gBoard[i][j].minesAroundCount;
-    renderBoard(gBoard)
+    // renderBoard(gBoard)
+
 
     return
   }
+
+  // if the cell is already revealed there is no reason to click on it again
+  if (gBoard[i][j].isRevealed) return
 
   // if the game is finished the player cannot click any more cells
   if (gGame.isOn === false) return;
@@ -230,8 +255,6 @@ function checkGameOver() {
     elSmile.innerHTML = WIN_IMG;
   }
 }
-
-function expandReveal(board, elCell, i, j) { }
 
 function setLives() {
   var elLives = document.querySelector(".lives");
